@@ -20,11 +20,11 @@ if(isset($_GET['controller'])) {
             break;
         case 'movies':
             require_once 'Controller/MovieController.php';
-            $controller = new MovieController; 
+            $controller = new MovieController;
             break;
         case 'user':
             require_once 'Controller/UserController.php';
-            $controller = new UserController; 
+            $controller = new UserController;
             break;
         case 'user':
             require_once 'Controller/UserController.php';
@@ -55,7 +55,6 @@ if(isset($_GET['controller'])) {
     }
 } else {
     // oder mach sonstwas
-    // @todo: gebe hier die start page als home-page aus
     require_once 'Views/home.php';
 }
 ?>

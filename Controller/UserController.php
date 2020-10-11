@@ -33,7 +33,7 @@ class UserController {
         if ($user) {
             // Login erfolgreich
             // wir bauen uns eine Session namens 'auth' und speichern darin $user
-            $_SESSION['auth'] = $user; 
+            $_SESSION['auth'] = $user;
             header('location: ' . $this->redirectTo);
         } else {
             // @todo: redirect zum login form mit fehlermeldung, daß user daten nicht korrekt sind
@@ -47,8 +47,7 @@ class UserController {
         unset($_SESSION['auth']);
         session_destroy();
         header('location: '.$this->redirectTo);
-         
     }
 }
 
-?> 
+?>
