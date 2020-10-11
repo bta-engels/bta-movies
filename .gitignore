@@ -1,0 +1,6 @@
+.DS_Store
+/.idea
+/.editorconfig
+/.htaccess
+/git-init.txt
+/uploads/*
