@@ -5,14 +5,35 @@ require_once 'Models/Movie.php';
 require_once 'Models/Author.php';
 require_once 'Controller.php';
 
+/**
+ * Class MovieController
+ */
 class MovieController extends Controller {
 
+    /**
+     * @var string
+     */
     protected $listTitle = 'Movies';
+    /**
+     * @var string
+     */
     protected $showTitle = 'Movie';
+    /**
+     * @var string
+     */
     protected $uploadPath = __DIR__ . '/../uploads/';
+    /**
+     * @var string
+     */
     protected $redirectToList = '/movies';
+    /**
+     * @var array
+     */
     protected $authors;
 
+    /**
+     * MovieController constructor.
+     */
     public function __construct() {
         $this->model = new Movie;
 
@@ -21,7 +42,10 @@ class MovieController extends Controller {
         parent::__construct();
     }
 
-    public function index()
+    /**
+     * get all movies
+     */
+    public function index() : void
     {
         $selectedAuthor = null;
 
@@ -43,9 +67,11 @@ class MovieController extends Controller {
         }
     }
 
-    public function edit($id = null)
+    /**
+     * @param int|null $id
+     */
+    public function edit(int $id = null) : void
     {
-
         $authors = $this->authors;
         $title = $this->editTitle;
         $data  = null;
@@ -56,7 +82,10 @@ class MovieController extends Controller {
         require_once 'Views/Forms/movie.php';
     }
 
-    public function store($id = null)
+    /**
+     * @param int|null $id
+     */
+    public function store(int $id = null) : void
     {
         $title  = $_POST['title'];
         $price  = $_POST['price'];
@@ -88,7 +117,10 @@ class MovieController extends Controller {
         parent::save($params, $id);
     }
 
-    public function delete($id)
+    /**
+     * @param int $id
+     */
+    public function delete(int $id) : void
     {
         $movie = $this->model->find($id);
         if(parent::delete($id) && $movie && '' !== $movie['image']) {

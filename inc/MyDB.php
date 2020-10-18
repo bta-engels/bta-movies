@@ -1,11 +1,15 @@
 <?php
 require_once 'db.php';
+require_once 'MyDBException.php';
 
 /**
  * Class MyDB
  */
 class MyDB extends PDO {
 
+    /**
+     * @var int
+     */
     private $_outputFormat = PDO::FETCH_ASSOC;
 
     /**
@@ -26,8 +30,8 @@ class MyDB extends PDO {
      * @param null $params
      * @return array
      */
-    public function getAll($sql, $params = null) {
-        $stmt   = $this->_prepareAndExecute($sql, $params);
+    public function getAll(string $sql, array $params = null) : array {
+        $stmt   = $this->prepareAndExecute($sql, $params);
         $result = $stmt->fetchAll($this->_outputFormat);
         return $result;
     }
@@ -35,10 +39,10 @@ class MyDB extends PDO {
   /**
    * @param string $sql
    * @param array|null $params
-   * @return mixed
+   * @return array|bool
    */
-    public function getOne($sql, $params = null) {
-      $stmt   = $this->_prepareAndExecute($sql, $params);
+    public function getOne(string $sql, array $params = null) : array {
+      $stmt   = $this->prepareAndExecute($sql, $params);
       $result = $stmt->fetch($this->_outputFormat);
       return $result;
     }
@@ -48,15 +52,18 @@ class MyDB extends PDO {
      * @param null $params
      * @return bool|PDOStatement
      */
-    private function _prepareAndExecute($sql, $params = null) {
+    protected function prepareAndExecute($sql, $params = null) : PDOStatement {
       $stmt = $this->prepare($sql);
       $stmt->execute($params);
-      $this->_handleErrors($stmt);
+      $this->handleErrors($stmt);
 
       return $stmt;
     }
 
-    public function _handleErrors($stmt) 
+    /**
+     * @param PDOStatement $stmt
+     */
+    public function handleErrors(PDOStatement $stmt)
     {
       $error = $stmt->errorInfo() ?: null;
       // gibt es fehler, dann gebe sie hier aus
@@ -82,16 +89,5 @@ class MyDB extends PDO {
     {
         return $this->_outputFormat;
     }
-}
-
-class MyDBException extends PDOException {
-    /**
-     * Override constructor and set message and code properties.
-     * Workaround PHP BUGS #51742, #39615
-     */
-    public function __construct($message = null, $code = null) {
-        $this->message = $message;
-        $this->code = $code;
-    }  
 }
 ?>

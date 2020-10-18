@@ -1,24 +1,51 @@
 <?php
 
+/**
+ * Class Controller
+ */
 class Controller {
 
+    /**
+     * @var
+     */
     protected $model;
+    /**
+     * @var string
+     */
     protected $listTitle = 'Allgemeiner Titel';
+    /**
+     * @var string
+     */
     protected $showTitle = 'Allgemeiner Show Titel';
+    /**
+     * @var string
+     */
     protected $editTitle = 'Edit';
+    /**
+     * @var
+     */
     protected $redirectToList;
+    /**
+     * @var string
+     */
     private $viewKey;
 
+    /**
+     * Controller constructor.
+     */
     public function __construct()
     {
         $this->viewKey = strtolower(get_class($this->model));
     }
 
-    public function index()
+    /**
+     *
+     */
+    public function index() : void
     {
         $title  = $this->listTitle;
         $list   = $this->model->all();
-        
+
         if(isset($_SESSION['auth'])) {
             require_once 'Views/' . $this->viewKey . '/admin/index.php';
         } else {
@@ -26,14 +53,20 @@ class Controller {
         }
     }
 
-    public function show($id)
+    /**
+     * @param int $id
+     */
+    public function show(int $id) : void
     {
         $title  = $this->showTitle;
         $item = $this->model->find($id, true);
         require_once 'Views/' . $this->viewKey . '/show.php';
     }
 
-    public function edit($id = null)
+    /**
+     * @param int|null $id
+     */
+    public function edit(int $id = null) : void
     {
         $title = $this->editTitle;
         $data  = null;
@@ -44,7 +77,11 @@ class Controller {
         require_once 'Views/Forms/'.$this->viewKey.'.php';
     }
 
-    public function save($params, $id = null) {
+    /**
+     * @param array $params
+     * @param int|null $id
+     */
+    public function save(array $params, int $id = null) : void {
         if( $id > 0 ) {
             // füge den params die id als array element hinzu
             $params += ['id' => $id];
@@ -59,7 +96,10 @@ class Controller {
         header('location: ' . $this->redirectToList);
     }
 
-    public function delete($id) {
+    /**
+     * @param int $id
+     */
+    public function delete(int $id) : void {
         $table = $this->model->delete($id);
         // redirect zur listen ansicht
         header('location: ' . $this->redirectToList);

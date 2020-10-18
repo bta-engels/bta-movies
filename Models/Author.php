@@ -2,11 +2,22 @@
 
 require_once 'Model.php';
 
+/**
+ * Class Author
+ */
 class Author extends Model {
 
+    /**
+     * @var string
+     */
     protected $table = 'authors';
 
-    public function find($id, $withMovies = false)
+    /**
+     * @param int $id
+     * @param bool $withMovies
+     * @return array
+     */
+    public function find(int $id, bool $withMovies = false) : array
     {
         $author = parent::find($id);
 

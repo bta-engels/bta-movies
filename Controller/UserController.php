@@ -2,26 +2,40 @@
 
 require_once 'Models/User.php';
 
+/**
+ * Class UserController
+ */
 class UserController {
 
     /**
      * @var User
      */
     private $model;
+    /**
+     * @var string
+     */
     private $redirectTo = '/';
 
+    /**
+     * UserController constructor.
+     */
     public function __construct() {
         $this->model = new User;
     }
 
-
-    public function login()
+    /**
+     * get login form
+     */
+    public function login() : void
     {
         $title      = 'Login';
         require_once 'Views/Forms/login.php';
     }
 
-    public function check()
+    /**
+     * check login data and redirect user
+     */
+    public function check() : void
     {
         $user = $this->model->get($_POST['username'], $_POST['password']);
         if ($user){
@@ -39,10 +53,12 @@ class UserController {
             // @todo: redirect zum login form mit fehlermeldung, daß user daten nicht korrekt sind
             header('location: /login');
         }
-
     }
 
-    public function logout()
+    /**
+     * logout a user
+     */
+    public function logout() : void
     {
         unset($_SESSION['auth']);
         session_destroy();
