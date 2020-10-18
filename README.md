@@ -27,3 +27,31 @@ Include etc/extra/httpd-vhosts.conf
 ```
 Falls diese Zeile dort existiert und ein Rautezeichen (Zeichen für Kommentar-Zeile) davor steht, 
 dann entfernt es bitte. 
+
+#### MVC Design Pattern als Grundlage der Projekt Struktur
+- M: Model = Funktionalitäten der Datenhaltung (CRUD - Aktionen: Create, Read, Update, Delete).
+Betrifft die notwendigen DB-Funktionalitäten
+- V: View = Die Anzeige Logik (HTML, CSS, Javascript). Implementierung der der Daten per PHP.
+- C: Controller = Die spezielle Logik zur Behandlung aller Requests per Routing
+
+#### Routing
+Implementierung der Controller-Aktionen entsprechend der vorgegebener URL Parameter per GET-Requests.
+Die GET-Parameter werden von uns definiert und zu Suchmaschinen-freundlichen URL's gemappt.
+Es gibt folgende GET-Parameter:
+- controller
+- action
+- id (optional)
+Beispiele: 
+- aus bta-movies/index.php?controller=authors&action=index wird: bta-movies/authors
+- aus bta-movies/index.php?controller=authors&action=edit&id=1 wird: bta-movies/authors/edit/1
+
+Das gesamte Routing wird in index.php implementiert. Eine bestimmte Route (z.B bta-movies/authors) 
+instanziert einen bestimmten Controller und führt eine für diese Route vorgesehene Aktion (Controller Methode)
+aus. Beispiel: bta-movies/authors => AuthorController::index()
+
+#### Daten (Model) und Views
+Die Controller inkludieren per require_once die vorgesehenen View-Files
+und liefern ihnen über Model-Funktionen die notwendigen Daten per PHP-Variablen.
+
+
+
