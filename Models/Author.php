@@ -22,7 +22,7 @@ class Author extends Model {
         $author = parent::find($id);
 
         if($withMovies) {
-            $sql = 'SELECT * FROM movies WHERE author_id = :id';
+            $sql = "SELECT * FROM $this->table WHERE author_id = :id";
             $movies = $this->getAll($sql, ['id' => $author['id']]);
             $author['movies'] = $movies;
         }
