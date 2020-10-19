@@ -4,6 +4,9 @@
 #### Für Mac OSX, Linux DNS in host Datei eintragen (/etc/hosts)
 - 127.0.0.1	bta-movies.loc
 
+Zugriffsrechte unter Windows setzen
+![Dateirechte](./win_access_hosts.png)
+
 #### Apache -> httpd-vhosts.conf
 - Windows: C:\xampp\apache\conf\extra\httpd-vhosts.conf
 - Mac OSX: /Applications/XAMPP/etc/extra/httpd-vhosts.conf
