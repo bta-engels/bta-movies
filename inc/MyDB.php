@@ -20,8 +20,11 @@ class MyDB extends PDO {
         // DSN: data source name
         $dsn  = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
         $options    = array(
+            // gib abfrage ergenisse mit dem zechensatzt 'utf8' aus
             PDO::MYSQL_ATTR_INIT_COMMAND    => 'SET NAMES utf8',
+            // einen einzelnen datensatz nur als assoziatives array ausgeben
             PDO::ATTR_DEFAULT_FETCH_MODE    => $this->_outputFormat,
+            // bei auftretenden fehlern exceptions ausgeben
             PDO::ATTR_ERRMODE               => PDO::ERRMODE_EXCEPTION,
         );
         parent::__construct($dsn, DB_USERNAME, DB_PASSWORD, $options);
