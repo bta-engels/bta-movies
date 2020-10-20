@@ -25,7 +25,7 @@ class Model extends MyDB {
      */
     public function all() : array
     {
-        $sql = 'SELECT * FROM ' . $this->table;
+        $sql = "SELECT * FROM $this->table";
         return $this->getAll($sql);
     }
 
@@ -36,7 +36,7 @@ class Model extends MyDB {
      */
     public function find(int $id) : array
     {
-        $sql = 'SELECT * FROM '. $this->table.' WHERE id = :id';
+        $sql = "SELECT * FROM $this->table WHERE id = :id";
         $result = $this->getOne($sql, ['id' => $id]);
 
         return $result;
@@ -54,7 +54,7 @@ class Model extends MyDB {
             $conditions[] = "$item = :$item";
         }
         $strConditions = implode(' AND ', $conditions);
-        $sql = 'SELECT * FROM ' . $this->table . ' WHERE ' . $strConditions;
+        $sql = "SELECT * FROM $this->table WHERE $strConditions";
 
         return $this->getAll($sql, $params);
     }
