@@ -1,5 +1,9 @@
 <?php require_once 'inc/html_header.php'; ?>
 
+<?php if($error): ?>
+    <h3 class="text-danger"><?php echo $error; ?></h3>
+<?php endif; ?>
+
 <form method="post" class="" action="/login/check">
     <div class="form-group row">
         <label for="username" class="col-md-2 col-form-label">Username</label>

@@ -37,21 +37,24 @@ class UserController {
      */
     public function check() : void
     {
-        $user = $this->model->get($_POST['username'], $_POST['password']);
-        if ($user){
-            $_SESSION['auth'] = $user;
-            header('location: '.$this->redirectTo);
-        } else{
-            header('location: /login');
-        }
-        if ($user) {
-            // Login erfolgreich
-            // wir bauen uns eine Session namens 'auth' und speichern darin $user
-            $_SESSION['auth'] = $user;
-            header('location: ' . $this->redirectTo);
+        // lese formular daten aus u. speichere sie in variablen 
+        // entferne per trim etwaige leerzeichen vom anfang und ende der formular-daten
+        $username = trim($_POST['username']);
+        // verschlüssle das Klartext-Passwort als MD5-Hash
+        // liegt in der DB in dieser Form verschlüsselt vor
+        $password = md5(trim($_POST['password']));
+        
+        // benutze model User für user Abfrage as DB
+        $user = $this->model->get($username, $password);
+        if($user) {
+            if(!isset($_SESSION['auth'])) {
+                $_SESSION['auth'] = $user;
+            }
+            // leite um auf Startseite
+            header("location: $this->redirectTo");
         } else {
-            // @todo: redirect zum login form mit fehlermeldung, daß user daten nicht korrekt sind
-            header('location: /login');
+            $error = 'Falsche Login-Daten!';
+            require_once 'Views/Forms/login.php';
         }
     }
 
