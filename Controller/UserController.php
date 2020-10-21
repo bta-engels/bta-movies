@@ -28,7 +28,8 @@ class UserController {
      */
     public function login() : void
     {
-        $title      = 'Login';
+        $title  = 'Login';
+        $error  = null; 
         require_once 'Views/Forms/login.php';
     }
 
