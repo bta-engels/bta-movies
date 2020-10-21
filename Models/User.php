@@ -20,7 +20,7 @@ class User extends Model {
      */
     public function get(string $username, string $password)
     {
-        $sql = 'SELECT id,username FROM ' . $this->table . ' WHERE username = ? AND password = MD5(?)';
+        $sql = "SELECT id,username FROM $this->table WHERE username = ? AND password = MD5(?)";
         return $this->getOne($sql, [$username, $password]);
     }
 }
