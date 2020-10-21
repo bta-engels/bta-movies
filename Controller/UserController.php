@@ -54,6 +54,7 @@ class UserController {
             // leite um auf Startseite
             header("location: $this->redirectTo");
         } else {
+            $title = 'Login';
             $error = 'Falsche Login-Daten!';
             require_once 'Views/Forms/login.php';
         }
