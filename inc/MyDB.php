@@ -35,9 +35,9 @@ class MyDB extends PDO
     /**
      * @param string $sql
      * @param null $params
-     * @return array
+     * @return array|bool
      */
-    public function getAll(string $sql, array $params = null) : array
+    public function getAll(string $sql, array $params = null)
     {
         $stmt   = $this->prepareAndExecute($sql, $params);
         $result = $stmt->fetchAll($this->_outputFormat);
@@ -49,7 +49,7 @@ class MyDB extends PDO
    * @param array|null $params
    * @return array|bool
    */
-    public function getOne(string $sql, array $params = null) : array
+    public function getOne(string $sql, array $params = null)
     {
         $stmt   = $this->prepareAndExecute($sql, $params);
         $result = $stmt->fetch($this->_outputFormat);

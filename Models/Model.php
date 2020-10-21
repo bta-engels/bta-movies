@@ -32,9 +32,9 @@ class Model extends MyDB {
     /**
      * get one dataset by id
      * @param int $id
-     * @return array
+     * @return array|bool
      */
-    public function find(int $id) : array
+    public function find(int $id)
     {
         $sql = "SELECT * FROM $this->table WHERE id = :id";
         $result = $this->getOne($sql, ['id' => $id]);
@@ -45,9 +45,9 @@ class Model extends MyDB {
     /**
      * get data by condition as array
      * @param array $params
-     * @return array
+     * @return array|bool
      */
-    public function where(array $params) : array
+    public function where(array $params)
     {
         $conditions = [];
         foreach(array_keys($params) as $item) {

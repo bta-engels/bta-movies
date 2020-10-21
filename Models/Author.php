@@ -15,9 +15,9 @@ class Author extends Model {
     /**
      * @param int $id
      * @param bool $withMovies
-     * @return array
+     * @return array|bool
      */
-    public function find(int $id, bool $withMovies = false) : array
+    public function find(int $id, bool $withMovies = false)
     {
         $author = parent::find($id);
 
