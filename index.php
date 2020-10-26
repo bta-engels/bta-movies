@@ -1,6 +1,9 @@
 <?php
 session_start();
+// schalte penible fehler ausgabe ein, zeigt auch warnungen 
+error_reporting(E_ALL);
 
+require_once 'inc/Helper.php';
 // initialisiere variablen
 $id         = null;
 // name einer controller funktion
@@ -8,53 +11,55 @@ $action     = null;
 // identifikator eines controllers
 $controller = null;
 
-//die('<pre>'. print_r($_GET, true).'</pre>');
-
-// ein controller wurde als GET parameter gesetzt
-if(isset($_GET['controller'])) {
-    // entscheide, was hier per controller geschehen soll
+// wenn 'controller' als GET parameter gesetzt wurde
+if( isset($_GET['controller']) ) {
+    // Hier setze anhand der GET Parameter die Werte für die obigen Variablen
+    // block von gleichberechtigten if statements   
     switch($_GET['controller']) {
+        case 'user':
+            // hier login funktion des UserControllers aufrufen
+            require_once 'Controller/UserController.php';
+            $controller = new UserController();
+            break;
         case 'authors':
             require_once 'Controller/AuthorController.php';
-            $controller = new AuthorController;
+            $controller = new AuthorController();
             break;
         case 'movies':
             require_once 'Controller/MovieController.php';
-            $controller = new MovieController;
-            break;
-        case 'user':
-            require_once 'Controller/UserController.php';
-            $controller = new UserController;
-            break;
-        case 'user':
-            require_once 'Controller/UserController.php';
-            $controller = new UserController;
-            break;
-        case 'api':
-            require_once 'Controller/Api/ApiAuthorController.php';
-            $controller = new ApiAuthorController;
+            $controller = new MovieController();
             break;
     }
-
-    // ein aktion wurde als GET parameter gesetzt
-    if( $controller && isset($_GET['action'])) {
-        // name einer controller funktion
+/*
+    hier $action setzen, wenn $controller nicht null ist 
+    UND isset($_GET['action'])
+    UND eine methode $action des objekts $controller existiert (php-funktion: method_exists)
+*/
+    if( $controller && isset($_GET['action']) && method_exists($controller, $_GET['action']) ) {
         $action = $_GET['action'];
-
-        if( method_exists($controller, $action) ) {
-            // zusätzlich wurde auch ein GET parameter 'id' gesetzt
-            if (isset($_GET['id']) && (int) $_GET['id'] > 0 ) {
-                // führe eine eine controller funktion mit $id parameter aus
-                // z:B $controller->show(3);
-                $controller->$action( (int) $_GET['id']);
-            } else {
-                // führe eine eine controller funktion ohne parameter aus
-                $controller->$action();
-            }
+        /*
+        UserController funktionen: login, check, logout
+        AuthorController, MovieController Funktionen:
+        index, show($id), edit($id = null), store($id = null), delete($id)
+        Aufruf der methode $action mittels der objekt-instanz $controller
+        todo: id aus $_GET abfragen ($id damit setzen), falls vorhanden.
+        wenn vorhanden und grösser 0, dann als parameter der objekt methode setzen:
+        $controller->$action($id);
+        wenn nicht vorhanden dann: $controller->$action();
+        in der variablen $action steckt der name der controller funktion, die aufgerufen werden soll
+        */
+        if( isset($_GET['id']) && $_GET['id'] > 0 ) {
+            $id = (int) $_GET['id'];
+            $controller->$action($id);
+        } else {
+            $controller->$action();
         }
     }
+    
 } else {
-    // oder mach sonstwas
+    // ansonsten zeige die home page
     require_once 'Views/home.php';
 }
+
+//Helper::dump($_GET);
 ?>
