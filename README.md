@@ -13,7 +13,7 @@ Zugriffsrechte unter Windows setzen
 ```
 <VirtualHost *:80>
 	ServerName bta-movies.loc
-        DocumentRoot "FULL PATH TO ... /htdocs/bta-movies"
+        DocumentRoot "htdocs/bta-movies"
 	CustomLog "logs/access_bta-movies.log" common
 	ErrorLog "logs/error_bta-movies.log"
 </VirtualHost>
