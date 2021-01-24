@@ -1,6 +1,6 @@
 <?php
 session_start();
-// schalte penible fehler ausgabe ein, zeigt auch warnungen 
+// schalte penible fehler ausgabe ein, zeigt auch warnungen
 error_reporting(E_ALL);
 
 require_once 'inc/Helper.php';
@@ -14,7 +14,7 @@ $controller = null;
 // wenn 'controller' als GET parameter gesetzt wurde
 if( isset($_GET['controller']) ) {
     // Hier setze anhand der GET Parameter die Werte für die obigen Variablen
-    // block von gleichberechtigten if statements   
+    // block von gleichberechtigten if statements
     switch($_GET['controller']) {
         case 'user':
             // hier login funktion des UserControllers aufrufen
@@ -29,9 +29,13 @@ if( isset($_GET['controller']) ) {
             require_once 'Controller/MovieController.php';
             $controller = new MovieController();
             break;
+        case 'api':
+            require_once 'Controller/ApiAuthorController.php';
+            $controller = new ApiAuthorController();
+            break;
     }
 /*
-    hier $action setzen, wenn $controller nicht null ist 
+    hier $action setzen, wenn $controller nicht null ist
     UND isset($_GET['action'])
     UND eine methode $action des objekts $controller existiert (php-funktion: method_exists)
 */
@@ -54,8 +58,11 @@ if( isset($_GET['controller']) ) {
         } else {
             $controller->$action();
         }
+    } else {
+        // ansonsten zeige die home page
+        require_once 'Views/home.php';
     }
-    
+
 } else {
     // ansonsten zeige die home page
     require_once 'Views/home.php';

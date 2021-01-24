@@ -1,16 +1,12 @@
 <?php
-
 require_once 'Models/User.php';
+require_once 'Controller.php';
 
 /**
  * Class UserController
  */
-class UserController {
+class UserController extends Controller {
 
-    /**
-     * @var User
-     */
-    private $model;
     /**
      * @var string
      */
@@ -29,7 +25,7 @@ class UserController {
     public function login() : void
     {
         $title  = 'Login';
-        $error  = null; 
+        $error  = null;
         require_once 'Views/Forms/login.php';
     }
 
@@ -38,13 +34,13 @@ class UserController {
      */
     public function check() : void
     {
-        // lese formular daten aus u. speichere sie in variablen 
+        // lese formular daten aus u. speichere sie in variablen
         // entferne per trim etwaige leerzeichen vom anfang und ende der formular-daten
         $username = trim($_POST['username']);
         // verschlüssle das Klartext-Passwort als MD5-Hash
         // liegt in der DB in dieser Form verschlüsselt vor
         $password = md5(trim($_POST['password']));
-        
+
         // benutze model User für user Abfrage as DB
         $user = $this->model->get($username, $password);
         if($user) {

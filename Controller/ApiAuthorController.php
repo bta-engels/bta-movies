@@ -1,16 +1,11 @@
 <?php
-
 require_once 'Models/Author.php';
+require_once 'Controller/Controller.php';
 
 /**
  * Class ApiAuthorController
  */
-class ApiAuthorController {
-
-    /**
-     * @var Author
-     */
-    protected $model;
+class ApiAuthorController extends Controller {
 
     /**
      * ApiAuthorController constructor.

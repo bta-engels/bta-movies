@@ -35,6 +35,7 @@ class MovieController extends Controller {
      * MovieController constructor.
      */
     public function __construct() {
+        $this->uploadPath = realpath($this->uploadPath);
         $this->model = new Movie;
 
         $author = new Author;
@@ -90,11 +91,15 @@ class MovieController extends Controller {
         $title  = $_POST['title'];
         $price  = $_POST['price'];
         $author_id = $_POST['author_id'];
+        // für mac und linux: upload-path muss beschreibbar sein
+        if(!is_writable($this->uploadPath)) {
+            die("Error: $this->uploadPath ist nicht beschreibbar!");
+        }
 
         if( isset($_FILES['image']) && $_FILES['image']['error'] == 0 ) {
             $image          = $_FILES['image']['name'];
             $source         = $_FILES['image']['tmp_name'];
-            $destination    = $this->uploadPath . $image;
+            $destination    = "$this->uploadPath/$image";
 
             if(move_uploaded_file($source, $destination)) {
                 @chmod($destination, 0666);
