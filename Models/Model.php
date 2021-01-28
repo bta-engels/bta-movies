@@ -34,8 +34,11 @@ class Model extends MyDB {
      * @param int $id
      * @return array|bool
      */
-    public function find(int $id)
+    public function find($id)
     {
+        if(!$id || $id < 1) {
+            throw new Exception('Ivalid ID Parameter');
+        }
         $sql = "SELECT * FROM $this->table WHERE id = :id";
         $result = $this->getOne($sql, ['id' => $id]);
 
@@ -65,8 +68,11 @@ class Model extends MyDB {
      * @param int $id
      * @return PDOStatement
      */
-    public function update(array $params, int $id) : PDOStatement
+    public function update(array $params, $id) : PDOStatement
     {
+        if(!$id || $id < 1) {
+            throw new Exception('Ivalid ID Parameter');
+        }
         // baue mir ein array mit spaltenname und spalten platzhalter anhand der $params
         $updateValues = [];
         // array_keys liefert alle keys eines arrays als array
@@ -121,7 +127,10 @@ class Model extends MyDB {
      * @param int $id
      * @return PDOStatement
      */
-    public function delete(int $id) : PDOStatement {
+    public function delete($id) : PDOStatement {
+        if(!$id || $id < 1) {
+            throw new Exception('Ivalid ID Parameter');
+        }
         $sql = 'DELETE FROM '. $this->table. ' WHERE id = ?';
         return $this->prepareAndExecute($sql, [ $id ]);
     }

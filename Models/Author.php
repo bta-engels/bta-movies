@@ -17,8 +17,11 @@ class Author extends Model {
      * @param bool $withMovies
      * @return array|bool
      */
-    public function find(int $id, bool $withMovies = false)
+    public function find($id, bool $withMovies = false)
     {
+        if(!$id || $id < 1) {
+            throw new Exception('Ivalid ID Parameter');
+        }
         $author = parent::find($id);
 
         if($withMovies) {

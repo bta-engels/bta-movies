@@ -19,18 +19,28 @@ class ApiAuthorController extends Controller {
      * Get all authors
      */
     public function authors() : void {
-        $data = $this->model->all();
-        die($this->_response($data));
+        try {
+            $data = $this->model->all();
+            die($this->_response($data));
+        } catch(Exception $e) {
+            $error = $e->getMessage();
+            die($this->_response(null, $error));
+        }
     }
 
     /**
      * Get author by id
      * @param int $id
      */
-    public function author(int $id) : void
+    public function author($id = null) : void
     {
-        $data = $this->model->find($id, true);
-        die($this->_response($data));
+        try {
+            $data = $this->model->find($id, true);
+            die($this->_response($data));
+        } catch(Exception $e) {
+            $error = $e->getMessage();
+            die($this->_response(null, $error));
+        }
     }
 
     /**
@@ -38,21 +48,14 @@ class ApiAuthorController extends Controller {
      * @param array $data
      * @return string
      */
-    private function _response(array $data ) : string {
+    private function _response($data, $error = null ) : string {
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
 
         $result = [
-            'error' => 'Sorry, Error',
-            'data'  => null,
+            'data'  => $data,
+            'error' => $error,
         ];
-
-        if ($data) {
-            $result = [
-                'error' => null,
-                'data'  => $data,
-            ];
-        }
         return json_encode($result);
     }
 }
