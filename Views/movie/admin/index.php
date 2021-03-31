@@ -17,8 +17,8 @@
                 >
                     <option value="0">Alle</option>
                     <?php foreach ($authors as $author) : ?>
-                        <option value="<?php echo $author['id']; ?>" <?php if ($selectedAuthor && $author['id'] === $selectedAuthor) : ?>selected<?php endif; ?>>
-                            <?php echo $author['firstname'] . ' ' . $author['lastname']; ?>
+                        <option value="<?php echo $author->id; ?>" <?php if ($selectedAuthor && $author->id === $selectedAuthor) : ?>selected<?php endif; ?>>
+                            <?php echo $author->firstname . ' ' . $author->lastname; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -37,11 +37,11 @@
         </tr>
         <?php foreach ($list as $movie) : ?>
             <tr>
-                <td><?php echo $movie['id']; ?></td>
-                <td><a href="/movies/<?php echo $movie['id']; ?>"><?php echo $movie['title']; ?></a></td>
-                <td><?php echo $movie['price']; ?></td>
-                <td class="col-1"><a href="/movies/edit/<?php echo $movie['id']; ?>" class="btn-sm btn-primary" role="button">Edit</a></td>
-                <td class="col-1"><a href="/movies/delete/<?php echo $movie['id']; ?>" class="btn-sm btn-danger delsoft" role="button">Delete</a></td>
+                <td><?php echo $movie->id; ?></td>
+                <td><a href="/movies/<?php echo $movie->id; ?>"><?php echo $movie->title; ?></a></td>
+                <td><?php echo $movie->price; ?></td>
+                <td class="col-1"><a href="/movies/edit/<?php echo $movie->id; ?>" class="btn-sm btn-primary" role="button">Edit</a></td>
+                <td class="col-1"><a href="/movies/delete/<?php echo $movie->id; ?>" class="btn-sm btn-danger delsoft" role="button">Delete</a></td>
             </tr>
         <?php endforeach; ?>
     </table>

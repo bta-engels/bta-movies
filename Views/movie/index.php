@@ -13,8 +13,8 @@
                 >
                     <option value="0">Alle</option>
                     <?php foreach ($authors as $author) : ?>
-                        <option value="<?php echo $author['id']; ?>" <?php if ($selectedAuthor && $author['id'] === $selectedAuthor) : ?>selected<?php endif; ?>>
-                            <?php echo $author['firstname'] . ' ' . $author['lastname']; ?>
+                        <option value="<?php echo $author->id; ?>" <?php if ($selectedAuthor && $author->id === $selectedAuthor) : ?>selected<?php endif; ?>>
+                            <?php echo $author->firstname . ' ' . $author->lastname; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -32,9 +32,9 @@
         </tr>
         <?php foreach ($list as $movie) : ?>
             <tr>
-                <td><?php echo $movie['id']; ?></td>
-                <td><a href="/movies/<?php echo $movie['id']; ?>"><?php echo $movie['title']; ?></a></td>
-                <td><?php echo $movie['price']; ?></td>
+                <td><?php echo $movie->id; ?></td>
+                <td><a href="/movies/<?php echo $movie->id; ?>"><?php echo $movie->title; ?></a></td>
+                <td><?php echo $movie->price; ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

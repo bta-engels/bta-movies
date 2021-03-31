@@ -14,11 +14,11 @@
         </tr>
         <?php foreach ($list as $author) : ?>
             <tr>
-                <td><?php echo $author['id']; ?></td>
-                <td><?php echo $author['firstname']; ?></td>
-                <td><a href="/authors/<?php echo $author['id']; ?>"><?php echo $author['lastname']; ?></a></td>
-                <td class="col-1"><a href="/authors/edit/<?php echo $author['id']; ?>" class="btn-sm btn-primary" role="button">Edit</a></td>
-                <td class="col-1"><a href="/authors/delete/<?php echo $author['id']; ?>" class="btn-sm btn-danger delsoft" role="button">Delete</a></td>
+                <td><?php echo $author->id; ?></td>
+                <td><?php echo $author->firstname; ?></td>
+                <td><a href="/authors/<?php echo $author->id; ?>"><?php echo $author->lastname; ?></a></td>
+                <td class="col-1"><a href="/authors/edit/<?php echo $author->id; ?>" class="btn-sm btn-primary" role="button">Edit</a></td>
+                <td class="col-1"><a href="/authors/delete/<?php echo $author->id; ?>" class="btn-sm btn-danger delsoft" role="button">Delete</a></td>
             </tr>
         <?php endforeach; ?>
     </table>

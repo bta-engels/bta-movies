@@ -1,17 +1,22 @@
 <?php
 require_once 'db.php';
 require_once 'MyDBException.php';
-
+/*
+require_once 'Models/Author.php';
+require_once 'Models/Movie.php';
+require_once 'Models/User.php';
+*/
 /**
  * Class MyDB
  */
 class MyDB extends PDO
 {
 
+    protected $class;
     /**
      * @var int
      */
-    private $_outputFormat = PDO::FETCH_ASSOC;
+    private $_outputFormat = PDO::FETCH_OBJ;
 
     /**
      * MyDB constructor.
@@ -28,6 +33,7 @@ class MyDB extends PDO
             PDO::ATTR_DEFAULT_FETCH_MODE    => $this->_outputFormat,
             // bei auftretenden fehlern exceptions ausgeben
             PDO::ATTR_ERRMODE               => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_EMULATE_PREPARES      => true,
         );
         parent::__construct($dsn, DB_USERNAME, DB_PASSWORD, $options);
     }
@@ -40,7 +46,7 @@ class MyDB extends PDO
     public function getAll(string $sql, array $params = null)
     {
         $stmt   = $this->prepareAndExecute($sql, $params);
-        $result = $stmt->fetchAll($this->_outputFormat);
+        $result = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $this->class);
         return $result;
     }
 
@@ -52,7 +58,7 @@ class MyDB extends PDO
     public function getOne(string $sql, array $params = null)
     {
         $stmt   = $this->prepareAndExecute($sql, $params);
-        $result = $stmt->fetch($this->_outputFormat);
+        $result = $stmt->fetchObject($this->class);
         return $result;
     }
 
@@ -64,6 +70,7 @@ class MyDB extends PDO
     protected function prepareAndExecute($sql, $params = null) : PDOStatement
     {
         $stmt = $this->prepare($sql);
+//        $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $this->class);
         $stmt->execute($params);
         $this->handleErrors($stmt);
 

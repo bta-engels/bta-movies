@@ -7,10 +7,13 @@ require_once 'Model.php';
  */
 class Author extends Model {
 
+    protected $class = __CLASS__;
+
     /**
      * @var string
      */
     protected $table = 'authors';
+    public $movies;
 
     /**
      * @param int $id
@@ -26,8 +29,7 @@ class Author extends Model {
 
         if($withMovies) {
             $sql = "SELECT * FROM movies WHERE author_id = :id";
-            $movies = $this->getAll($sql, ['id' => $author['id']]);
-            $author['movies'] = $movies;
+            $this->movies = $this->getAll($sql, ['id' => $id]);
         }
 
         return $author;

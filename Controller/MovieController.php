@@ -39,7 +39,7 @@ class MovieController extends Controller {
         $this->model = new Movie;
 
         $author = new Author;
-        $this->authors = $author->all();
+//        $this->authors = $author->all();
         parent::__construct();
     }
 

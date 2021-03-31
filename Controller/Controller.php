@@ -45,6 +45,7 @@ class Controller {
     {
         $title  = $this->listTitle;
         $list   = $this->model->all();
+//        Helper::dump($list);
 
         if(isset($_SESSION['auth'])) {
             require_once 'Views/' . $this->viewKey . '/admin/index.php';

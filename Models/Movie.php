@@ -7,10 +7,13 @@ require_once 'Model.php';
  */
 class Movie extends Model {
 
+    protected $class = __CLASS__;
+
     /**
      * @var string
      */
     protected $table = 'movies';
+    public $author;
 
     /**
      * @param int $id
@@ -27,8 +30,7 @@ class Movie extends Model {
 
         if($withAuthor) {
             $sql = "SELECT * , CONCAT(firstname,' ',lastname) name FROM authors WHERE id = :id";
-            $author = $this->getOne( $sql, ['id' => $movie['author_id']]);
-            $movie['author'] = $author;
+            $this->author = $this->getOne( $sql, ['id' => $id]);
         }
 
         return $movie;

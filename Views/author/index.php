@@ -9,9 +9,9 @@
         </tr>
         <?php foreach ($list as $author) : ?>
             <tr>
-                <td><?php echo $author['id']; ?></td>
-                <td><?php echo $author['firstname']; ?></td>
-                <td><a href="/authors/<?php echo $author['id']; ?>"><?php echo $author['lastname']; ?></a></td>
+                <td><?php echo $author->id; ?></td>
+                <td><?php echo $author->firstname; ?></td>
+                <td><a href="/authors/<?php echo $author->id; ?>"><?php echo $author->lastname; ?></a></td>
             </tr>
         <?php endforeach; ?>
     </table>
