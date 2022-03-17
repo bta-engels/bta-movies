@@ -1,8 +1,8 @@
-# bta-movies
-## Einrichtung eines Virtuellen Host namens: bta-movies.loc
+# my-movies
+## Einrichtung eines Virtuellen Host namens: my-movies.loc
 #### Für Windows DNS in host Datei eintragen (C:\Window\System32\drivers\etc\hosts)
 #### Für Mac OSX, Linux DNS in host Datei eintragen (/etc/hosts)
-- 127.0.0.1	bta-movies.loc
+- 127.0.0.1	my-movies.loc
 
 Zugriffsrechte unter Windows setzen
 ![Dateirechte](./win_access_hosts.png)
@@ -12,10 +12,10 @@ Zugriffsrechte unter Windows setzen
 - Mac OSX: /Applications/XAMPP/etc/extra/httpd-vhosts.conf
 ```
 <VirtualHost *:80>
-	ServerName bta-movies.loc
-        DocumentRoot "htdocs/bta-movies"
-	CustomLog "logs/access_bta-movies.log" common
-	ErrorLog "logs/error_bta-movies.log"
+	ServerName my-movies.loc
+        DocumentRoot "htdocs/my-movies"
+	CustomLog "logs/access-my-movies.log" common
+	ErrorLog "logs/error-my-movies.log"
 </VirtualHost>
 ```
 
@@ -45,12 +45,12 @@ Es gibt folgende GET-Parameter:
 - action
 - id (optional)
 Beispiele: 
-- aus bta-movies/index.php?controller=authors&action=index wird: bta-movies/authors
-- aus bta-movies/index.php?controller=authors&action=edit&id=1 wird: bta-movies/authors/edit/1
+- aus my-movies/index.php?controller=authors&action=index wird: my-movies/authors
+- aus my-movies/index.php?controller=authors&action=edit&id=1 wird: my-movies/authors/edit/1
 
-Das gesamte Routing wird in index.php implementiert. Eine bestimmte Route (z.B bta-movies/authors) 
+Das gesamte Routing wird in index.php implementiert. Eine bestimmte Route (z.B my-movies/authors) 
 instanziert einen bestimmten Controller und führt eine für diese Route vorgesehene Aktion (Controller Methode)
-aus. Beispiel: bta-movies/authors => AuthorController::index()
+aus. Beispiel: my-movies/authors => AuthorController::index()
 
 #### Daten (Model) und Views
 Die Controller inkludieren per require_once die vorgesehenen View-Files
