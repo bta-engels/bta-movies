@@ -4,6 +4,7 @@ session_start();
 error_reporting(E_ALL);
 
 require_once 'inc/Helper.php';
+
 // initialisiere variablen
 $id         = null;
 // name einer controller funktion
@@ -52,7 +53,7 @@ if( isset($_GET['controller']) ) {
         wenn nicht vorhanden dann: $controller->$action();
         in der variablen $action steckt der name der controller funktion, die aufgerufen werden soll
         */
-        if( isset($_GET['id']) && $_GET['id'] > 0 ) {
+        if( isset($_GET['id']) ) {
             $id = (int) $_GET['id'];
             $controller->$action($id);
         } else {
